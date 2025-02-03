@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Calendar</title>
+    <title>Calendari Corals UIB</title>
 
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
@@ -40,17 +40,7 @@
                 "paresimares": "#FFA500",  // Taronja
                 "mestres": "#FF69B4",      // Rosa
                 "dones": "#1ABC9C",        // Turquesa
-                "majors": "#6B8D9D",       // Blau platejat
-                "orfeo": "#FF5733",        // Vermell
-                "cuib": "#28A745"          // Verd
-            };
-            var backgroundcolorMap = {
-                "infantils": "#FFD700",    // Groc
-                "juvenil": "#D3D3D3",      // Blanc
-                "paresimares": "#FFA500",  // Taronja
-                "mestres": "#FF69B4",      // Rosa
-                "dones": "#1ABC9C",        // Turquesa
-                "majors": "#6B8D9D",       // Blau platejat
+                "majors": "#7EA4B6",       // Blau platejat
                 "orfeo": "#FF5733",        // Vermell
                 "cuib": "#28A745"          // Verd
             };
@@ -66,12 +56,11 @@
                             // Assign colors based on "coral" property
                             events.forEach(event => {
                                 var color = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
-                                var backgroundcolor = backgroundcolorMap[event.coral] || "#7f8c8d"; // Default gray if no match
         
                                 // If the event is "especial", set the background color for the text
                                 if (event.especial === 'si') {
                                     event.textColor = '#000000';  // Ensure text is black for contrast
-                                    event.backgroundColor = backgroundcolor;  // Apply color to background of event text
+                                    event.backgroundColor = color;  // Apply color to background of event text
                                 } else {
                                     event.backgroundColor = color;  // Standard event background color (circle)
                                     event.borderColor = color;
