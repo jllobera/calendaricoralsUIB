@@ -34,9 +34,36 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            // Define color mapping based on the "coral" property
+            var colorMap = {
+                "infantils": "#FFD700",  // Groc
+                "juvenil": "#FFFFFF",  // Blanc
+                "paresimares": "#FFA500",   // Taronja
+                "mestres": "#FF69B4"    // Rosa
+                "dones": "#1ABC9C" // Turquesa
+                "majors": "#6C7A89" // Blau platejat
+                "orfeo": "#FF5733" // Vermell
+                "cuib": "#28A745" // Verd
+            };
+            
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: 'events.json?' + new Date().getTime(), // Prevents caching
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    fetch('events.json?' + new Date().getTime()) // Prevent caching
+                        .then(response => response.json())
+                        .then(events => {
+                            // Assign colors based on "coral" property
+                            events.forEach(event => {
+                                event.backgroundColor = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
+                                event.borderColor = event.backgroundColor;
+                            });
+                            successCallback(events);
+                        })
+                        .catch(error => {
+                            console.error("Error loading events:", error);
+                            failureCallback(error);
+                        });
+                },
                 eventClick: function(info) {
                     alert(info.event.title + "\n\n" + (info.event.extendedProps.horari || "Horari no disponible.") + "\n" + (info.event.extendedProps.aula || "Aula no disponible."));
                 }
