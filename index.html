@@ -56,6 +56,9 @@
                             events.forEach(event => {
                                 event.backgroundColor = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
                                 event.borderColor = event.backgroundColor;
+                                if (event.horari) {
+                                    event.title = `${event.horari} ${event.title}`;
+                                }
                             });
                             successCallback(events);
                         })
