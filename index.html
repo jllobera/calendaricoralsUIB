@@ -68,15 +68,11 @@
                 eventClick: function(info) {
                     alert(info.event.title + "\n\n" + (info.event.extendedProps.horari || "Horari no disponible.") + "\n" + (info.event.extendedProps.aula || "Aula no disponible."));
                 },
-                eventrender: function(info) {
-                    // Get the event's horari and the title
-                    var horari = info.event.extendedProps.horari;
-                    var title = info.event.title;
-                    // Adjust the event's display format
-                    if (horari) {
-                        // Display horari before the title
-                        info.el.querySelector('.fc-event-title').innerHTML = `<strong>${horari}</strong> ${title}`;
-                    }
+                eventtimeformat: {
+                    // 24-hour time format
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
                 }
             });
             calendar.render();
