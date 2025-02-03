@@ -49,6 +49,7 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 firstday: 1,  // Start the week on Monday
+                locale: 'ca',
                 events: function(fetchInfo, successCallback, failureCallback) {
                     fetch('events.json?' + new Date().getTime()) // Prevent caching
                         .then(response => response.json())
