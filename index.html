@@ -34,7 +34,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-            // Define color mapping based on the "coral" property
             var colorMap = {
                 "infantils": "#FFD700",    // Groc
                 "juvenil": "#FFFFFF",      // Blanc
@@ -45,7 +44,7 @@
                 "orfeo": "#FF5733",        // Vermell
                 "cuib": "#28A745"          // Verd
             };
-            
+        
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 firstDay: 1,  // Start the week on Monday
@@ -56,9 +55,8 @@
                         .then(events => {
                             // Assign colors based on "coral" property
                             events.forEach(event => {
-                                // Get the color based on the "coral" property
                                 var color = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
-                
+        
                                 // If the event is "especial", set the background color for the text
                                 if (event.especial === 'si') {
                                     event.textColor = '#FFFFFF';  // Ensure text is white for contrast
@@ -76,22 +74,24 @@
                         });
                 },
                 eventClick: function(info) {
-                    // Extract start and end times
                     const startTime = new Date(info.event.start);
                     const endTime = new Date(info.event.end);
-                
-                    // Format the times in 24-hour format with minutes
                     const startFormatted = startTime.getHours().toString().padStart(2, '0') + ':' + startTime.getMinutes().toString().padStart(2, '0');
                     const endFormatted = endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0');
-                
-                    // Display the formatted time range along with the other event details
                     alert(`${info.event.title}\n\n${startFormatted} - ${endFormatted}\n${(info.event.extendedProps.aula || "Aula no disponible.")}`);
                 },
                 eventTimeFormat: {
-                    // 24-hour time format
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: false
+                },
+                eventDidMount: function(info) {
+                    // Custom styling for "especial" events
+                    if (info.event.extendedProps.especial === 'si') {
+                        info.el.style.backgroundColor = info.event.backgroundColor; // Apply color to background
+                        info.el.style.color = info.event.textColor;  // Apply white text color for contrast
+                        info.el.style.border = 'none';  // Remove border for "especial" events
+                    }
                 }
             });
             calendar.render();
