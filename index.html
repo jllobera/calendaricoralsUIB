@@ -56,8 +56,17 @@
                         .then(events => {
                             // Assign colors based on "coral" property
                             events.forEach(event => {
-                                event.backgroundColor = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
-                                event.borderColor = event.backgroundColor;
+                                // Get the color based on the "coral" property
+                                var color = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
+                
+                                // If the event is "especial", set the background color for the text
+                                if (event.especial === 'si') {
+                                    event.textColor = '#FFFFFF';  // Ensure text is white for contrast
+                                    event.backgroundColor = color;  // Apply color to background of event text
+                                } else {
+                                    event.backgroundColor = color;  // Standard event background color (circle)
+                                    event.borderColor = color;
+                                }
                             });
                             successCallback(events);
                         })
