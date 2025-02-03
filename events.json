@@ -3,7 +3,7 @@
         "start": "2025-02-07T16:00:00",
         "end": "2025-02-07T18:00:00",
         "horari": "16:00-18:00",
-        "coral": "Coral Juvenil",
+        "coral": "juvenil",
         "descripcio": "Assaig normal",
         "aula": "Aula JM Thomas"},
 
@@ -11,7 +11,7 @@
         "start": "2025-02-07T17:30:00",
         "end": "2025-02-07T19:00:00",
         "horari": "17:30-19:00",
-        "coral": "Corals Infantils",
+        "coral": "infantils",
         "descripcio": "Assaig normal",
         "aula": "Aula 0, Aula 1, Aula de música"},
 
@@ -19,7 +19,7 @@
         "start": "2025-02-07T17:30:00",
         "end": "2025-02-07T19:00:00",
         "horari": "17:30-19:00",
-        "coral": "Coral de Pares i Mares",
+        "coral": "paresimares",
         "descripcio": "Assaig normal",
         "aula": "Aula 2"}
 ]
