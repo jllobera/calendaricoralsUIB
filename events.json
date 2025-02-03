@@ -144,8 +144,8 @@
         "aula": "Aula de música"},
 
     { "title": "Dissabte musical Dones",
-        "start": "2025-02-08T10:00:00",
-        "end": "2025-02-29T14:00:00",
+        "start": "2025-02-08",
+        "end": "2025-02-09",
         "coral": "dones",
         "especial": "si",
         "descripcio": "Dissabte musical",
