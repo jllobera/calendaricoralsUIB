@@ -36,7 +36,7 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: 'events.json',
+                events: 'events.json?' + new Date().getTime(), // Prevents caching
                 eventClick: function(info) {
                     alert(info.event.title + "\n\n" + (info.event.extendedProps.horari || "Horari no disponible.") + "\n" + (info.event.extendedProps.aula || "Aula no disponible."));
                 }
