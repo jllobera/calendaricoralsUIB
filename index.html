@@ -36,7 +36,10 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: 'events.json' // Fetches events from JSON file
+                events: 'events.json',
+                eventClick: function(info) {
+                    alert(info.event.title + "\n\n" + (info.event.extendedProps.description || "No description available."));
+                }
             });
             calendar.render();
         });
