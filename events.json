@@ -4,5 +4,19 @@
         "horari": "16:00-18:00",
         "coral": "Coral Juvenil",
         "descripcio": "Assaig normal",
-        "aula": "Aula JM Thomas"}
+        "aula": "Aula JM Thomas"},
+
+    { "title": "Assaig Infantil",
+        "start": "2025-02-07",
+        "horari": "17:30-19:00",
+        "coral": "Corals Infantils",
+        "descripcio": "Assaig normal",
+        "aula": "Aula 0, Aula 1, Aula de música"},
+
+    { "title": "Assaig Pares i Mares",
+        "start": "2025-02-07",
+        "horari": "17:30-19:00",
+        "coral": "Coral de Pares i Mares",
+        "descripcio": "Assaig normal",
+        "aula": "Aula 2"},
 ]
