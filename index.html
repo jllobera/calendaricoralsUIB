@@ -57,9 +57,6 @@
                             events.forEach(event => {
                                 event.backgroundColor = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
                                 event.borderColor = event.backgroundColor;
-                                if (event.horari) {
-                                    event.title = `${event.horari} ${event.title}`;
-                                }
                             });
                             successCallback(events);
                         })
@@ -70,6 +67,16 @@
                 },
                 eventClick: function(info) {
                     alert(info.event.title + "\n\n" + (info.event.extendedProps.horari || "Horari no disponible.") + "\n" + (info.event.extendedProps.aula || "Aula no disponible."));
+                },
+                eventrender: function(info) {
+                    // Get the event's horari and the title
+                    var horari = info.event.extendedProps.horari;
+                    var title = info.event.title;
+                    // Adjust the event's display format
+                    if (horari) {
+                        // Display horari before the title
+                        info.el.querySelector('.fc-event-title').innerHTML = `<strong>${horari}</strong> ${title}`;
+                    }
                 }
             });
             calendar.render();
