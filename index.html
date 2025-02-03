@@ -38,7 +38,7 @@
                 initialView: 'dayGridMonth',
                 events: 'events.json',
                 eventClick: function(info) {
-                    alert(info.event.title + "\n\n" + (info.event.extendedProps.description || "No description available."));
+                    alert(info.event.title + "\n\n" + (info.event.extendedProps.horari || "Horari no disponible.") + "\n" + (info.event.extendedProps.aula || "Aula no disponible."));
                 }
             });
             calendar.render();
