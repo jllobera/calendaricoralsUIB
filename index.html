@@ -76,8 +76,7 @@
                     const endFormatted = endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0');
                 
                     // Display the formatted time range along with the other event details
-                    alert(`${startFormatted} - ${endFormatted}\n\n${info.event.title}\n\n${(info.event.extendedProps.horari || "Horari no disponible.")}\n${(info.event.extendedProps.aula || "Aula no disponible.")}`);
-                    // alert(info.event.title + "\n\n" + (info.event.extendedProps.horari || "Horari no disponible.") + "\n" + (info.event.extendedProps.aula || "Aula no disponible."));
+                    alert(`${info.event.title}\n\n${startFormatted} - ${endFormatted}\n${(info.event.extendedProps.aula || "Aula no disponible.")}`);
                 },
                 eventTimeFormat: {
                     // 24-hour time format
