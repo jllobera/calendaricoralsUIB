@@ -70,109 +70,90 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var colorMap = {
-                "infantils": "#FFD700",    // Groc
-                "juvenil": "#D3D3D3",      // Blanc
-                "paresimares": "#FFA500",  // Taronja
-                "mestres": "#FF69B4",      // Rosa
-                "dones": "#1ABC9C",        // Turquesa
-                "majors": "#7EA4B6",       // Blau platejat
-                "orfeo": "#FF5733",        // Vermell
-                "cuib": "#28A745"          // Verd
-            };
-        
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                firstDay: 1,  // Start the week on Monday
-                locale: 'ca',
-                events: function(fetchInfo, successCallback, failureCallback) {
-                    fetch('events.json?' + new Date().getTime()) // Prevent caching
-                        .then(response => response.json())
-                        .then(events => {
-                            // Assign colors based on "coral" property
-                            events.forEach(event => {
-                                var color = colorMap[event.coral] || "#7f8c8d"; // Default gray if no match
-        
-                                // If the event is "especial", set the background color for the text
-                                if (event.especial === 'si') {
-                                    event.textColor = '#000000';  // Ensure text is black for contrast
-                                    event.backgroundColor = color;  // Apply color to background of event text
-                                } else {
-                                    event.backgroundColor = color;  // Standard event background color (circle)
-                                    event.borderColor = color;
-                                }
-                            });
-                            successCallback(events);
-                        })
-                        .catch(error => {
-                            console.error("Error loading events:", error);
-                            failureCallback(error);
+    var calendar;  // 🌟 Declare calendar globally
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var colorMap = {
+            "infantils": "#FFD700",    // Groc
+            "juvenil": "#D3D3D3",      // Blanc
+            "paresimares": "#FFA500",  // Taronja
+            "mestres": "#FF69B4",      // Rosa
+            "dones": "#1ABC9C",        // Turquesa
+            "majors": "#7EA4B6",       // Blau platejat
+            "orfeo": "#FF5733",        // Vermell
+            "cuib": "#28A745"          // Verd
+        };
+
+        calendar = new FullCalendar.Calendar(calendarEl, {  // 🌟 Use global calendar variable
+            initialView: 'dayGridMonth',
+            firstDay: 1,
+            locale: 'ca',
+            events: function(fetchInfo, successCallback, failureCallback) {
+                fetch('events.json?' + new Date().getTime()) // Prevent caching
+                    .then(response => response.json())
+                    .then(events => {
+                        events.forEach(event => {
+                            var color = colorMap[event.coral] || "#7f8c8d";
+                            if (event.especial === 'si') {
+                                event.textColor = '#000000';
+                                event.backgroundColor = color;
+                            } else {
+                                event.backgroundColor = color;
+                                event.borderColor = color;
+                            }
                         });
-                },
-                eventClick: function(info) {
-                    const startTime = new Date(info.event.start);
-                    const endTime = new Date(info.event.end);
-                    const startFormatted = startTime.getHours().toString().padStart(2, '0') + ':' + startTime.getMinutes().toString().padStart(2, '0');
-                    const endFormatted = endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0');
-                    alert(`${info.event.title}\n\n${startFormatted} - ${endFormatted}\n${(info.event.extendedProps.aula || "Aula no disponible.")}`);
-                },
-                eventTimeFormat: {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
-                },
-                eventDidMount: function(info) {
-                    // Custom styling for "especial" events
-                    if (info.event.extendedProps.especial === 'si') {
-                        info.el.style.backgroundColor = info.event.backgroundColor; // Apply color to background
-                        info.el.style.color = info.event.textColor;  // Apply white text color for contrast
-                        info.el.style.border = 'none';  // Remove border for "especial" events
-                    }
+                        successCallback(events);
+                    })
+                    .catch(error => {
+                        console.error("Error loading events:", error);
+                        failureCallback(error);
+                    });
+            },
+            eventClick: function(info) {
+                const startTime = new Date(info.event.start);
+                const endTime = new Date(info.event.end);
+                const startFormatted = startTime.getHours().toString().padStart(2, '0') + ':' + startTime.getMinutes().toString().padStart(2, '0');
+                const endFormatted = endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0');
+                alert(`${info.event.title}\n\n${startFormatted} - ${endFormatted}\n${(info.event.extendedProps.aula || "Aula no disponible.")}`);
+            },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            },
+            eventDidMount: function(info) {
+                if (info.event.extendedProps.especial === 'si') {
+                    info.el.style.backgroundColor = info.event.backgroundColor;
+                    info.el.style.color = info.event.textColor;
+                    info.el.style.border = 'none';
                 }
-                dateclick: function(info) {
-                    document.getElementById('eventFormContainer').style.display = 'block';
-                    document.getElementById('eventStart').value = info.dateStr + "T00:00"; // Default start time
-                    document.getElementById('eventEnd').value = info.dateStr + "T23:59"; // Default end time
-                }
-            });
-            calendar.render();
+            },
+            dateClick: function(info) {
+                document.getElementById('eventFormContainer').style.display = 'block';
+                document.getElementById('eventStart').value = info.dateStr + "T12:00"; // Default start time
+                document.getElementById('eventEnd').value = info.dateStr + "T13:00"; // Default end time
+            }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const addEventBtn = document.getElementById('addEventBtn');
-            const eventFormContainer = document.getElementById('eventFormContainer');
-            const cancelEvent = document.getElementById('cancelEvent');
-        
-            // Show form when "Add Event" button is clicked
-            addEventBtn.addEventListener('click', function () {
-                eventFormContainer.style.display = 'block';
-            });
-        
-            // Hide form when "Cancel" is clicked
-            cancelEvent.addEventListener('click', function () {
-                eventFormContainer.style.display = 'none';
-            });
-        });
+        calendar.render();  // 🌟 Render calendar
 
+        // 🌟 Event form submission logic
         document.getElementById('eventForm').addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent page reload
-        
-            // Get form values
+            e.preventDefault();
+
             const title = document.getElementById('eventTitle').value;
             const start = document.getElementById('eventStart').value;
             const end = document.getElementById('eventEnd').value;
             const category = document.getElementById('eventCategory').value;
             const especial = document.getElementById('eventEspecial').checked ? 'si' : 'no';
             const aula = document.getElementById('eventAula').value;
-        
+
             if (!title || !start || !end) {
                 alert("Please fill in all required fields.");
                 return;
             }
-        
-            // Create event object
+
             const newEvent = {
                 title: title,
                 start: start,
@@ -181,19 +162,23 @@
                 especial: especial,
                 aula: aula
             };
-        
-            // Add event to FullCalendar
-            calendar.addEvent(newEvent);
-        
-            // Hide form
+
+            calendar.addEvent(newEvent);  // 🌟 Ensure calendar is accessible
+
             document.getElementById('eventFormContainer').style.display = 'none';
-        
-            // Reset form
             document.getElementById('eventForm').reset();
         });
 
+        document.getElementById('addEventBtn').addEventListener('click', function () {
+            document.getElementById('eventFormContainer').style.display = 'block';
+        });
 
-    </script>
+        document.getElementById('cancelEvent').addEventListener('click', function () {
+            document.getElementById('eventFormContainer').style.display = 'none';
+        });
+    });
+</script>
+
 
     <button id="addEventBtn">+ Add Event</button>
 
