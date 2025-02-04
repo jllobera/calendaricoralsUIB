@@ -131,6 +131,11 @@
                         info.el.style.border = 'none';  // Remove border for "especial" events
                     }
                 }
+                dateclick: function(info) {
+                    document.getElementById('eventFormContainer').style.display = 'block';
+                    document.getElementById('eventStart').value = info.dateStr + "T00:00"; // Default start time
+                    document.getElementById('eventEnd').value = info.dateStr + "T23:59"; // Default end time
+                }
             });
             calendar.render();
         });
