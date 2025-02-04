@@ -134,6 +134,60 @@
             });
             calendar.render();
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const addEventBtn = document.getElementById('addEventBtn');
+            const eventFormContainer = document.getElementById('eventFormContainer');
+            const cancelEvent = document.getElementById('cancelEvent');
+        
+            // Show form when "Add Event" button is clicked
+            addEventBtn.addEventListener('click', function () {
+                eventFormContainer.style.display = 'block';
+            });
+        
+            // Hide form when "Cancel" is clicked
+            cancelEvent.addEventListener('click', function () {
+                eventFormContainer.style.display = 'none';
+            });
+        });
+
+        document.getElementById('eventForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent page reload
+        
+            // Get form values
+            const title = document.getElementById('eventTitle').value;
+            const start = document.getElementById('eventStart').value;
+            const end = document.getElementById('eventEnd').value;
+            const category = document.getElementById('eventCategory').value;
+            const especial = document.getElementById('eventEspecial').checked ? 'si' : 'no';
+            const aula = document.getElementById('eventAula').value;
+        
+            if (!title || !start || !end) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+        
+            // Create event object
+            const newEvent = {
+                title: title,
+                start: start,
+                end: end,
+                coral: category,
+                especial: especial,
+                aula: aula
+            };
+        
+            // Add event to FullCalendar
+            calendar.addEvent(newEvent);
+        
+            // Hide form
+            document.getElementById('eventFormContainer').style.display = 'none';
+        
+            // Reset form
+            document.getElementById('eventForm').reset();
+        });
+
+
     </script>
 
     <button id="addEventBtn">+ Add Event</button>
