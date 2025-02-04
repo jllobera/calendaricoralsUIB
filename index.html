@@ -25,7 +25,7 @@
 </head>
 <body>
 
-    <h1>Event Calendar</h1>
+    <h1>Calendari Corals UIB</h1>
     <div id="calendar"></div>
 
     <!-- FullCalendar JS -->
@@ -97,6 +97,44 @@
             calendar.render();
         });
     </script>
+
+    <button id="addEventBtn">+ Add Event</button>
+
+    <div id="eventFormContainer">
+        <form id="eventForm">
+            <h3>Add New Event</h3>
+            <label>Title:</label>
+            <input type="text" id="eventTitle" required>
+    
+            <label>Start Time:</label>
+            <input type="datetime-local" id="eventStart" required>
+    
+            <label>End Time:</label>
+            <input type="datetime-local" id="eventEnd" required>
+    
+            <label>Category:</label>
+            <select id="eventCategory">
+                <option value="infantils">Infantils</option>
+                <option value="juvenil">Juvenil</option>
+                <option value="paresimares">Pares i Mares</option>
+                <option value="mestres">Mestres</option>
+                <option value="dones">Dones</option>
+                <option value="majors">Majors</option>
+                <option value="orfeo">Orfeó</option>
+                <option value="cuib">CUIB</option>
+            </select>
+    
+            <label>Especial:</label>
+            <input type="checkbox" id="eventEspecial">
+    
+            <label>Location (Aula):</label>
+            <input type="text" id="eventAula">
+    
+            <button type="submit">Save Event</button>
+            <button type="button" id="cancelEvent">Cancel</button>
+        </form>
+    </div>
+
 
 </body>
 </html>
